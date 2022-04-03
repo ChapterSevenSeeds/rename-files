@@ -1,0 +1,30 @@
+{
+    "dependencies": {
+        "args-parser": "^1.3.0",
+        "normalize-path": "^3.0.0"
+    },
+    "name": "rename-files",
+    "version": "1.0.0",
+    "description": "Rename multiple files in a directory that match a certain string.",
+    "main": "index.js",
+    "devDependencies": {
+        "jest": "^27.5.1"
+    },
+    "scripts": {
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ChapterSevenSeeds/rename-files.git"
+    },
+    "keywords": [
+        "rename",
+        "files"
+    ],
+    "author": "Tyson Jones",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ChapterSevenSeeds/rename-files/issues"
+    },
+    "homepage": "https://github.com/ChapterSevenSeeds/rename-files#readme"
+}

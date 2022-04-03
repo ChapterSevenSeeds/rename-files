@@ -1,20 +1,23 @@
 const { readdir, rename } = require('fs/promises');
+const normalize = require('normalize-path');
 
-module.exports = async renameFiles(dir, search, replace) {
-    const dir = "C:/Users/Tyson/Desktop/RIPS/The Pretender/Season 01";
-    const search = new RegExp("(.+?) - (S\\d{2}E\\d{2}).mkv", "g");
-    const replace = "The Pretender - $2 - $1.mkv";
-    
-    const files = readdirSync(dir);
-    
+module.exports = async function (dir, search, replace) {
+    const normalizedPath = normalize(dir);
+
+    const searchRegex = new RegExp(search);
+    const files = await readdir(normalizedPath);
+
+    const promises = [];
     for (const file of files) {
-        const groups = search.exec(file);
-        search.lastIndex = 0;
+        const groups = searchRegex.exec(file);
+        searchRegex.lastIndex = 0;
         if (groups != null) {
             const newFileName = replace.replace(/(?<!\\)(\$\d+)/g, (match) => {
                 return groups[Number(match.substring(1))]
             });
-            renameSync(`${dir}/${file}`, `${dir}/${newFileName}`);
+            promises.push(rename(`${normalizedPath}/${file}`, `${normalizedPath}/${newFileName}`));
         }
     }
+
+    await Promise.all(promises);
 }
